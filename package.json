@@ -1,6 +1,6 @@
 {
   "name": "bron",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Tiny test runner",
   "main": "index.js",
   "bin": "bron.js",
