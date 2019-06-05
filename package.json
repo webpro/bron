@@ -1,0 +1,46 @@
+{
+  "name": "bron",
+  "version": "0.0.0",
+  "description": "Tiny test runner",
+  "main": "index.js",
+  "bin": "bron.js",
+  "scripts": {
+    "test": "./bron.js test.js",
+    "release": "release-it"
+  },
+  "keywords": [
+    "test",
+    "testing",
+    "runner",
+    "unit",
+    "assert",
+    "async",
+    "await",
+    "promise",
+    "tiny",
+    "minimal",
+    "fast"
+  ],
+  "author": {
+    "email": "lars@webpro.nl",
+    "name": "Lars Kappert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webpro/bron.git"
+  },
+  "homepage": "https://github.com/webpro/bron#readme",
+  "bugs": "https://github.com/webpro/bron/issues",
+  "engines": {
+    "node": ">=10"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "release-it": "^12.2.2"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
+  }
+}
