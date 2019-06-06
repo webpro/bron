@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "bron.js",
   "scripts": {
-    "test": "./bron.js test.js",
+    "test": "node ./bron.js test.js",
     "release": "release-it"
   },
   "keywords": [
