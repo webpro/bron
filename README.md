@@ -129,3 +129,25 @@ no can do
 ✖ 1 test(s) failed.
 ✔ 1 test(s) passed.
 ```
+
+### .skip
+
+```js
+test.skip('should be skipped', () => {
+  assert.equal(1, 1);
+});
+```
+
+### .only
+
+```js
+test.only('should pass', () => {
+  assert.equal(1, 1);
+});
+
+test('should be skipped', () => {
+  assert.equal(1, 1);
+});
+```
+
+You can use `.only` multiple times (each `.only` will run).

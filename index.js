@@ -4,7 +4,7 @@ const { EOL } = require('os');
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
-const [tests, results, passed, failed, summary] = [[], [], [], [], []];
+const [tests, results, passed, failed, skipped, only, summary] = [[], [], [], [], [], [], []];
 
 const createHandlers = title => [
   () => {
@@ -43,14 +43,13 @@ const run = async () => {
 
   files.forEach(file => require(path.resolve(file)));
 
-  await execute({ tests, isSerial });
+  await execute({ tests: only.length ? only : tests, isSerial });
 
-  await Promise.all(results).catch(err => {
-    if (tests.length - failed.length - passed.length !== 0) {
-      summary.push(`? ${tests.length - failed.length - passed.length} test(s) not executed`);
-    }
-  });
+  await Promise.all(results).catch(err => {});
 
+  if (tests.length - failed.length - passed.length !== 0) {
+    summary.push(`! ${tests.length - failed.length - passed.length} test(s) not executed`);
+  }
   if (failed.length) {
     summary.push(`✖ ${failed.length} test(s) failed`);
   }
@@ -64,3 +63,6 @@ const run = async () => {
 module.exports = (title, testFn) => tests.push([title, testFn]);
 
 module.exports.run = run;
+
+module.exports.skip = (title, testFn) => skipped.push([title, testFn]);
+module.exports.only = (title, testFn) => only.push([title, testFn]);
