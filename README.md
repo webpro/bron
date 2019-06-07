@@ -6,7 +6,7 @@ Tiny test runner
 - No magic, no separate processes, no dependencies
 - Use the Node.js [built-in assert](https://nodejs.org/api/assert.html) module, or bring your own (e.g. [chai](https://www.chaijs.com), [should.js](https://github.com/shouldjs/should.js))
 - Run tests in parallel (default), or serial
-- Requires Node.js v10+. Node.js v12 has even better validations and error messages.
+- Requires Node.js v8+. Node.js v12 has better validations and error messages.
 
 ## Installation
 

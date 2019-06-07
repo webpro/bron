@@ -32,7 +32,7 @@
   "homepage": "https://github.com/webpro/bron#readme",
   "bugs": "https://github.com/webpro/bron/issues",
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   },
   "license": "MIT",
   "devDependencies": {

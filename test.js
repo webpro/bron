@@ -26,15 +26,15 @@ test('should pass with returned promise', () => {
 // });
 
 test('should pass with rejected promise', () => {
-  assert.rejects(addAsync(1), /no can do/);
+  assert.rejects(() => addAsync(1), /no can do/);
 });
 
 test('should pass with resolved promise', () => {
-  assert.doesNotReject(addAsync(1, 2));
+  assert.doesNotReject(() => addAsync(1, 2));
 });
 
 test('should pass with rejected promise', () => {
-  assert.rejects(addAsync(1), /no can do/);
+  assert.rejects(() => addAsync(1), /no can do/);
 });
 
 test('should finish last in default mode, first in serial mode', async () => {

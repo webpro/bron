@@ -2,6 +2,8 @@ const path = require('path');
 const { types } = require('util');
 const { EOL } = require('os');
 
+const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
+
 const [tests, results, passed, failed, summary] = [[], [], [], [], []];
 
 const createHandlers = title => [
@@ -23,7 +25,7 @@ const execute = async ({ tests, isSerial }) => {
     try {
       const testResult = isSerial ? await testFn() : testFn();
       results.push(testResult);
-      if (types.isPromise(testResult)) {
+      if (isPromise(testResult)) {
         testResult.then(pass).catch(fail);
       } else {
         pass();
