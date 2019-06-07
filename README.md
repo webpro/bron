@@ -4,15 +4,33 @@ Tiny test runner
 
 - A single `test` function, no helpers
 - No magic, no separate processes, no dependencies
-- Use Node.js [built-in assert](https://nodejs.org/api/assert.html) module, or bring your own
+- Use the Node.js [built-in assert](https://nodejs.org/api/assert.html) module, or bring your own (e.g. [chai](https://www.chaijs.com), [should.js](https://github.com/shouldjs/should.js))
 - Run tests in parallel (default), or serial
-- Requires Node.js v10+
+- Requires Node.js v10+. Node.js v12 has even better validations and error messages.
 
-## Usage
+## Installation
+
+```
+npm install bron -D
+```
+
+Add a `test` script to run the tests (`npm test`), e.g.:
+
+```json
+{
+  "scripts": {
+    "test": "bron test/*.js"
+  }
+}
+```
+
+## Usage from CLI
 
 ```
 bron <file> [--serial]
 ```
+
+## Writing tests
 
 ### sync
 
@@ -32,7 +50,7 @@ test('should fail', () => {
 ```
 
 ```
-$ bron
+$ bron test.js
 ✔ should pass
 ✖ should fail
 AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
