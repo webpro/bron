@@ -9,9 +9,9 @@ test('should pass', () => {
   assert.equal(add(1, 2), 3);
 });
 
-// test('should fail', () => {
-//   assert.strictEqual(add(1, 2), 4);
-// });
+test.skip('should fail', () => {
+  assert.strictEqual(add(1, 2), 4);
+});
 
 test('should pass with resolved promise', async () => {
   assert.strictEqual(await addAsync(1, 2), 3);
@@ -21,9 +21,9 @@ test('should pass with returned promise', () => {
   return addAsync(1, 2);
 });
 
-// test('should fail with returned rejected promise', () => {
-//   return addAsync(1);
-// });
+test.skip('should fail with returned rejected promise', () => {
+  return addAsync(1);
+});
 
 test('should pass with rejected promise', () => {
   assert.rejects(() => addAsync(1), /no can do/);
