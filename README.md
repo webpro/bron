@@ -2,11 +2,11 @@
 
 Tiny test runner
 
-- A single `test` function, no helpers
+- Single `test()` function, plus [.skip()](#skip) and [.only()](#only)
 - No magic, no separate processes, no dependencies
 - Use the Node.js [built-in assert](https://nodejs.org/api/assert.html) module, or bring your own (e.g. [chai](https://www.chaijs.com), [should.js](https://github.com/shouldjs/should.js))
 - Run tests in parallel (default), or serial
-- Requires Node.js v8+. Node.js v12 has better validations and error messages.
+- Requires Node.js v8+ (Node.js v12 has better validations and error messages)
 
 ## Installation
 

@@ -37,12 +37,12 @@ test('should pass with rejected promise', () => {
   assert.rejects(() => addAsync(1), /no can do/);
 });
 
-test('should finish last in default mode, first in serial mode', async () => {
+test('should pass last in default mode, first in serial mode', async () => {
   await wait(100);
   assert(true);
 });
 
-test('should finish first in default mode, last in serial mode', async () => {
+test('should pass first in default mode, last in serial mode', async () => {
   await wait(0);
   assert(true);
 });
