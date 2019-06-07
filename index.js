@@ -47,8 +47,9 @@ const run = async () => {
 
   await Promise.all(results).catch(err => {});
 
-  if (tests.length - failed.length - passed.length !== 0) {
-    summary.push(`! ${tests.length - failed.length - passed.length} test(s) not executed`);
+  const total = tests.length + skipped.length + only.length;
+  if (total - failed.length - passed.length !== 0) {
+    summary.push(`! ${total - failed.length - passed.length} test(s) not executed`);
   }
   if (failed.length) {
     summary.push(`✖ ${failed.length} test(s) failed`);
