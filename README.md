@@ -20,8 +20,8 @@ happy to recommend one of the more full fledged options:
 
 | Runner         | Dependencies |  Size |
 | -------------- | :----------: | ----: |
-| Bron (v1.0.0)  |      0       |   3Kb |
-| Tape (v4.10.2) |      32      | 263KB |
+| Bron (v1.0.0)  |      0       |    3K |
+| Tape (v4.10.2) |      32      |  263K |
 | Mocha (v6.1.4) |     115      | 1.52M |
 | Ava (v2.0.0)   |     453      | 3.95M |
 
