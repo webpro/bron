@@ -1,18 +1,18 @@
-const path = require('path');
 const { types } = require('util');
-const { EOL } = require('os');
+const path = require('path');
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
-const [tests, results, passed, failed, skipped, only, summary] = [[], [], [], [], [], [], []];
+let tests, only, results;
+let passed, failed, skipped;
 
 const createHandlers = title => [
   () => {
-    passed.push(title);
+    passed++;
     console.log(`✔ ${title}`);
   },
   err => {
-    failed.push(title);
+    failed++;
     console.log(`✖ ${title}`);
     console.error(err);
   }
@@ -36,10 +36,9 @@ const execute = async ({ tests, isSerial }) => {
   }
 };
 
-const run = async () => {
-  const args = process.argv.slice(2);
-  const files = args.filter(file => file !== '--serial');
-  const isSerial = args.some(arg => arg === '--serial');
+const run = async ({ files, isSerial }) => {
+  [tests, results, only] = [[], [], []];
+  [passed, failed, skipped] = [0, 0, 0];
 
   files.forEach(file => require(path.resolve(file)));
 
@@ -47,23 +46,13 @@ const run = async () => {
 
   await Promise.all(results).catch(err => {});
 
-  const total = tests.length + skipped.length + only.length;
-  if (total - failed.length - passed.length !== 0) {
-    summary.push(`! ${total - failed.length - passed.length} test(s) not executed`);
-  }
-  if (failed.length) {
-    summary.push(`✖ ${failed.length} test(s) failed`);
-  }
-  summary.push(`✔ ${passed.length} test(s) passed`);
-
-  console.log(EOL + summary.join(EOL));
-
-  process.exit(failed.length ? 1 : 0);
+  const total = tests.length + only.length + skipped;
+  return { total, failed, passed };
 };
 
 module.exports = (title, testFn) => tests.push([title, testFn]);
 
 module.exports.run = run;
 
-module.exports.skip = (title, testFn) => skipped.push([title, testFn]);
+module.exports.skip = (title, testFn) => skipped++;
 module.exports.only = (title, testFn) => only.push([title, testFn]);
