@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "bron.js",
   "scripts": {
-    "test": "node ./bron.js test.js",
+    "test": "node test",
     "release": "release-it"
   },
   "keywords": [
@@ -36,7 +36,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "release-it": "^12.2.2"
+    "release-it": "^12.2.2",
+    "sinon": "^7.3.2"
   },
   "release-it": {
     "github": {

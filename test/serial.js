@@ -1,15 +1,18 @@
 const assert = require('assert');
-const test = require('.');
+const { EOL } = require('os');
+const sinon = require('sinon');
+const test = require('..');
+const { run } = require('..');
 
 const add = (x, y) => x + y;
-const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject('no can do'));
+const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject(new Error('no can do')));
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 test('should pass', () => {
   assert.equal(add(1, 2), 3);
 });
 
-test.skip('should fail', () => {
+test('should fail', () => {
   assert.strictEqual(add(1, 2), 4);
 });
 
@@ -19,10 +22,6 @@ test('should pass with resolved promise', async () => {
 
 test('should pass with returned promise', () => {
   return addAsync(1, 2);
-});
-
-test.skip('should fail with returned rejected promise', () => {
-  return addAsync(1);
 });
 
 test('should pass with rejected promise', () => {
@@ -37,12 +36,12 @@ test('should pass with rejected promise', () => {
   assert.rejects(() => addAsync(1), /no can do/);
 });
 
-test('should pass last in default mode, first in serial mode', async () => {
+test('should pass first in serial mode', async () => {
   await wait(100);
   assert(true);
 });
 
-test('should pass first in default mode, last in serial mode', async () => {
+test('should pass last in serial mode', async () => {
   await wait(0);
   assert(true);
 });
