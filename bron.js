@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 const { EOL } = require('os');
+const { existsSync } = require('fs');
 const { run } = require('.');
 
 const args = process.argv.slice(2);
-const files = args.filter(file => file !== '--serial');
+const files = args.filter(existsSync);
 const isSerial = args.some(arg => arg === '--serial');
 
 run({ files, isSerial })
