@@ -10,21 +10,24 @@ Tiny test runner for Node.js
 - Timeouts (default: 15s)
 - Requires Node.js v8+ (Node.js v12 has better validations and error messages)
 
+[![Build Status](https://travis-ci.org/webpro/bron.svg?branch=master)](https://travis-ci.org/webpro/bron)
+[![npm version](https://badge.fury.io/js/bron.svg)](https://www.npmjs.com/package/bron)
+
 ## Why?
 
 Often for small projects, test suites consist of some wrapped assertions in `test` or `it` functions. Node.js has a fine
 `assert` module built-in, while exception output is prettier in Node v12. Last but not least, if any test fails, the
 process should exit with a non-zero code so that CI/CD environments can act accordingly.
 
-Turns out this isn't very hard to implement, bron is only <70 LOC. In case you need more from your test framework, I'm
-happy to recommend one of the more full fledged options:
+Turns out this isn't very hard to implement, all source code of bron combined is only <100 LOC. In case you need more
+from your test framework, I'm happy to recommend one of the more full fledged options:
 
 | Runner         | Dependencies |  Size |
 | -------------- | :----------: | ----: |
-| Bron (v1.0.0)  |      0       |    3K |
-| Tape (v4.10.2) |      32      |  263K |
-| Mocha (v6.1.4) |     115      | 1.52M |
-| Ava (v2.0.0)   |     453      | 3.95M |
+| Bron (v1.1.0)  |      0       |    5K |
+| Tape (v4.11.0) |      32      |  265K |
+| Mocha (v6.2.0) |     116      | 1.53M |
+| Ava (v2.2.0)   |     387      | 3.68M |
 
 ## Not featuring...
 
