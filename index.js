@@ -3,46 +3,58 @@ const path = require('path');
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
-let tests, only, results;
+let tests, only;
 let passed, failed, skipped;
 
-const createHandlers = title => [
-  () => {
-    passed++;
-    console.log(`✔ ${title}`);
-  },
-  err => {
-    failed++;
-    console.log(`✖ ${title}`);
-    console.error(err);
-  }
-];
-
-const execute = async ({ tests, isSerial }) => {
-  for (const index in tests) {
-    const [title, testFn] = tests[index];
-    const [pass, fail] = createHandlers(title);
-    try {
-      const testResult = isSerial ? await testFn() : testFn();
-      results.push(testResult);
-      if (isPromise(testResult)) {
-        testResult.then(pass).catch(fail);
-      } else {
-        pass();
-      }
-    } catch (err) {
-      fail(err);
+const start = ({ title, timeout, resolve }) => {
+  let called;
+  const end = err => {
+    if (called) return;
+    called = true;
+    clearTimeout(timer);
+    if (err instanceof Error) {
+      failed++;
+      console.log(`✖ ${title}`);
+      console.error(err);
+    } else {
+      passed++;
+      console.log(`✔ ${title}`);
     }
-  }
+    resolve();
+  };
+  const timer = setTimeout(end, timeout, new Error(`Test "${title}" timed out after ${timeout}ms`));
+  return end;
 };
 
-const run = async ({ files, isSerial }) => {
-  [tests, results, only] = [[], [], []];
+const execute = async ({ tests, isSerial, timeout = 15000 }) => {
+  const results = [];
+  for (const index in tests) {
+    const [title, testFn] = tests[index];
+    const test = new Promise(resolve => {
+      const end = start({ title, timeout, resolve });
+      try {
+        const testResult = testFn();
+        if (isPromise(testResult)) {
+          testResult.then(() => end()).catch(end);
+        } else {
+          end();
+        }
+      } catch (err) {
+        end(err);
+      }
+    });
+    results.push(isSerial ? await test : test);
+  }
+  return results;
+};
+
+const run = async ({ files, isSerial, timeout }) => {
+  [tests, only] = [[], [], []];
   [passed, failed, skipped] = [0, 0, 0];
 
   files.forEach(file => require(path.resolve(file)));
 
-  await execute({ tests: only.length ? only : tests, isSerial });
+  const results = await execute({ tests: only.length ? only : tests, isSerial, timeout });
 
   await Promise.all(results).catch(err => {});
 

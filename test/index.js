@@ -105,6 +105,28 @@ const errorStub = sinon.stub(console, 'error');
 
       console.info(output.join(EOL));
     }
+
+    logStub.reset();
+    errorStub.reset();
+
+    {
+      const { total, failed, passed } = await run({ files: ['test/timeout.js'], timeout: 100 });
+      const output = logStub.args.map(args => args[0]);
+
+      assert.deepEqual(output, [
+        '✔ should not time out',
+        '✔ should not time out (1ms)',
+        '✔ should not time out (50ms)',
+        '✖ should time out (150ms)',
+        '✖ should time out (150ms)'
+      ]);
+
+      assert.equal(total, 5);
+      assert.equal(failed, 2);
+      assert.equal(passed, 3);
+
+      console.info(output.join(EOL));
+    }
   } catch (err) {
     console.warn(err);
     process.exit(1);

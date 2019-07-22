@@ -7,6 +7,7 @@ Tiny test runner for Node.js
 - Use the Node.js [built-in assert](https://nodejs.org/api/assert.html) module, or bring your own (e.g.
   [chai](https://www.chaijs.com), [should.js](https://github.com/shouldjs/should.js))
 - Run tests in parallel (default), or serial
+- Timeouts (default: 15s)
 - Requires Node.js v8+ (Node.js v12 has better validations and error messages)
 
 ## Why?
@@ -27,7 +28,6 @@ happy to recommend one of the more full fledged options:
 
 ## Not featuring...
 
-- Timeouts (TODO)
 - Extensive command-line options
 - TAP reporting
 - Fancy colors
@@ -53,7 +53,7 @@ Add a `test` script to run the tests (`npm test`), e.g.:
 ## Usage from CLI
 
 ```
-bron <file> [--serial]
+bron <file> [--serial] [--timeout=500]
 ```
 
 ## Writing tests
@@ -177,3 +177,7 @@ test('should be skipped', () => {
 ```
 
 You can use `.only` multiple times (each `.only` will run).
+
+## Timeout
+
+Add `--timeout=n` (with `n` in milliseconds) to change the default value for each test (`15000`).

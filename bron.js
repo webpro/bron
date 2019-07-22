@@ -7,8 +7,9 @@ const { run } = require('.');
 const args = process.argv.slice(2);
 const files = args.filter(existsSync);
 const isSerial = args.some(arg => arg === '--serial');
+const timeout = parseInt(/(?<=--timeout[ =])[0-9]+/.exec(args.join(' ')), 10) || 15000;
 
-run({ files, isSerial })
+run({ files, isSerial, timeout })
   .then(({ total, failed, passed }) => {
     const summary = [];
     const completed = failed + passed;
