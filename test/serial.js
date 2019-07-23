@@ -1,8 +1,5 @@
 const assert = require('assert');
-const { EOL } = require('os');
-const sinon = require('sinon');
 const test = require('..');
-const { run } = require('..');
 
 const add = (x, y) => x + y;
 const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject(new Error('no can do')));

@@ -1,4 +1,3 @@
-const assert = require('assert');
 const test = require('..');
 
 test.only('should not be skipped', () => {});

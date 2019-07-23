@@ -56,7 +56,7 @@ const run = async ({ files, isSerial, timeout }) => {
 
   const results = await execute({ tests: only.length ? only : tests, isSerial, timeout });
 
-  await Promise.all(results).catch(err => {});
+  await Promise.all(results).catch(() => {});
 
   const total = tests.length + only.length + skipped;
   return { total, failed, passed };
@@ -66,5 +66,5 @@ module.exports = (title, testFn) => tests.push([title, testFn]);
 
 module.exports.run = run;
 
-module.exports.skip = (title, testFn) => skipped++;
+module.exports.skip = () => skipped++;
 module.exports.only = (title, testFn) => only.push([title, testFn]);
