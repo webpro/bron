@@ -56,7 +56,7 @@ Add a `test` script to run the tests (`npm test`), e.g.:
 ## Usage from CLI
 
 ```
-bron <file> [--serial] [--timeout=500]
+bron <file> [--serial] [--timeout=ms]
 ```
 
 ## Writing tests
@@ -98,14 +98,14 @@ AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
 No magic, but know that the tests run in parallel.
 
 ```js
-const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject('no can do'));
+const isTwoAsync = x => (x === 2 ? Promise.resolve('OK') : Promise.reject('NOT OK'));
 
 test('should pass with resolved promise', () => {
-  assert.doesNotReject(addAsync(1, 2));
+  assert.doesNotReject(() => isTwoAsync(2));
 });
 
 test('should pass with rejected promise', () => {
-  assert.rejects(addAsync(1), /no can do/);
+  assert.rejects(() => isTwoAsync(10), /NOT OK/);
 });
 ```
 
@@ -114,7 +114,7 @@ test('should pass with rejected promise', () => {
 Add `--serial`:
 
 ```js
-const wait = ms => new Promise(r => setTimeout(r, ms));
+const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 test('should run serial (first)', async () => {
   await wait(100);
@@ -138,14 +138,14 @@ $ bron --serial
 Return a promise, and the test will pass (resolved) or fail (rejected).
 
 ```js
-const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject('no can do'));
+const isTwoAsync = x => (x === 2 ? Promise.resolve('OK') : Promise.reject('NOT OK'));
 
 test('should pass with resolved promise', () => {
-  return addAsync(1, 2);
+  return isTwoAsync(2);
 });
 
 test('should fail with rejected promise', () => {
-  return addAsync(1);
+  return isTwoAsync(10);
 });
 ```
 
@@ -153,7 +153,7 @@ test('should fail with rejected promise', () => {
 $ bron
 ✔ should pass with resolved promise
 ✖ should fail with rejected promise
-no can do
+NOT OK
 
 ✖ 1 test(s) failed.
 ✔ 1 test(s) passed.
