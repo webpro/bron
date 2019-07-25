@@ -65,7 +65,7 @@ const errorStub = sinon.stub(console, 'error');
       assert.strictEqual(errorArgs[0].expected, 4);
 
       assert(errorArgs[1] instanceof Error);
-      assert.strictEqual(errorArgs[1].message, 'no can do');
+      assert.strictEqual(errorArgs[1].message, 'No can do!');
 
       assert.equal(total, 3);
       assert.equal(failed, 2);

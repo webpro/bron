@@ -1,9 +1,6 @@
 const assert = require('assert');
+const { add, addAsync, wait } = require('./helpers');
 const test = require('..');
-
-const add = (x, y) => x + y;
-const addAsync = (x, y) => (x && y ? Promise.resolve(x + y) : Promise.reject(new Error('no can do')));
-const wait = ms => new Promise(r => setTimeout(r, ms));
 
 test('should pass', () => {
   assert.equal(add(1, 2), 3);
@@ -22,7 +19,7 @@ test('should pass with returned promise', () => {
 });
 
 test('should pass with rejected promise', () => {
-  assert.rejects(() => addAsync(1), /no can do/);
+  assert.rejects(() => addAsync(1, 'a'), /No can do/);
 });
 
 test('should pass with resolved promise', () => {
@@ -30,7 +27,7 @@ test('should pass with resolved promise', () => {
 });
 
 test('should pass with rejected promise', () => {
-  assert.rejects(() => addAsync(1), /no can do/);
+  assert.rejects(() => addAsync(1, 'a'), /No can do/);
 });
 
 test('should pass first in serial mode', async () => {

@@ -1,7 +1,6 @@
 const assert = require('assert');
+const { wait } = require('./helpers');
 const test = require('..');
-
-const wait = ms => new Promise(r => setTimeout(r, ms));
 
 test('should pass last', async () => {
   await wait(100);
