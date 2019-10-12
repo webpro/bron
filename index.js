@@ -3,8 +3,8 @@ const { resolve } = require('path');
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
-let tests, only;
-let passed, failed, skipped;
+let [tests, only] = [[], []];
+let [passed, failed, skipped] = [0, 0, 0];
 
 const start = ({ title, timeout, resolve }) => {
   let called;
