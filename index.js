@@ -48,7 +48,11 @@ const execute = async ({ tests, isSerial, timeout = 15000 }) => {
   return results;
 };
 
-const run = async ({ files, isSerial, timeout }) => {
+module.exports = (title, testFn) => tests.push([title, testFn]);
+module.exports.skip = () => skipped++;
+module.exports.only = (title, testFn) => only.push([title, testFn]);
+
+module.exports.run = async ({ files, isSerial, timeout }) => {
   [tests, only] = [[], [], []];
   [passed, failed, skipped] = [0, 0, 0];
 
@@ -61,10 +65,3 @@ const run = async ({ files, isSerial, timeout }) => {
   const total = tests.length + only.length + skipped;
   return { total, failed, passed };
 };
-
-module.exports = (title, testFn) => tests.push([title, testFn]);
-
-module.exports.run = run;
-
-module.exports.skip = () => skipped++;
-module.exports.only = (title, testFn) => only.push([title, testFn]);
