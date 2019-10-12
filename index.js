@@ -1,5 +1,5 @@
 const { types } = require('util');
-const path = require('path');
+const { resolve } = require('path');
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
@@ -52,7 +52,7 @@ const run = async ({ files, isSerial, timeout }) => {
   [tests, only] = [[], [], []];
   [passed, failed, skipped] = [0, 0, 0];
 
-  files.forEach(file => require(path.resolve(file)));
+  files.forEach(file => require(resolve(file)));
 
   const results = await execute({ tests: only.length ? only : tests, isSerial, timeout });
 
