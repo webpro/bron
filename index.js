@@ -12,7 +12,7 @@ const start = ({ title, timeout, resolve }) => {
     if (called) return;
     called = true;
     clearTimeout(timer);
-    if (err instanceof Error) {
+    if (typeof err !== 'undefined') {
       failed++;
       console.log(`✖ ${title}`);
       console.error(err);
