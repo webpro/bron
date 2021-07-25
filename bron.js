@@ -2,7 +2,7 @@
 
 import { EOL } from 'os';
 import { existsSync } from 'fs';
-import { run } from '.';
+import { run } from './index.js';
 
 const args = process.argv.slice(2);
 const files = args.filter(existsSync);

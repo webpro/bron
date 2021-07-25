@@ -4,7 +4,7 @@
   "description": "Tiny test runner",
   "exports": "./index.js",
   "type": "module",
-  "bin": "bron.js",
+  "bin": "./bron.js",
   "scripts": {
     "format": "prettier --write \"*.js\" \"test/*.js\" \"*.md\"",
     "lint": "eslint *.js test",
