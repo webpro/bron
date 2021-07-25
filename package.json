@@ -2,7 +2,8 @@
   "name": "bron",
   "version": "1.1.1",
   "description": "Tiny test runner",
-  "main": "index.js",
+  "exports": "./index.js",
+  "type": "module",
   "bin": "bron.js",
   "scripts": {
     "format": "prettier --write \"*.js\" \"test/*.js\" \"*.md\"",
@@ -34,7 +35,7 @@
   "homepage": "https://github.com/webpro/bron#readme",
   "bugs": "https://github.com/webpro/bron/issues",
   "engines": {
-    "node": ">=8"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "license": "MIT",
   "devDependencies": {

@@ -8,7 +8,8 @@ Tiny test runner for Node.js
   [chai](https://www.chaijs.com), [should.js](https://github.com/shouldjs/should.js))
 - Run tests in parallel (default), or serial
 - Timeouts (default: 15s)
-- Requires Node.js v8+ (Node.js v12 has better validations and error messages)
+- Requires Node.js v12.20+
+- Written in/published as pure ES Modules
 
 [![Build Status](https://travis-ci.org/webpro/bron.svg?branch=master)](https://travis-ci.org/webpro/bron)
 [![npm version](https://badge.fury.io/js/bron.svg)](https://www.npmjs.com/package/bron)
@@ -16,7 +17,7 @@ Tiny test runner for Node.js
 ## Why?
 
 Often for small projects, test suites consist of some wrapped assertions in `test` or `it` functions. Node.js has a fine
-`assert` module built-in, while exception output is prettier in Node v12. Last but not least, if any test fails, the
+`assert` module built-in, while exception output is pretty since Node v12. Last but not least, if any test fails, the
 process should exit with a non-zero code so that CI/CD environments can act accordingly.
 
 Turns out this isn't very hard to implement, all source code of bron combined is only <100 LOC. In case you need more
