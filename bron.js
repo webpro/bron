@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { EOL } = require('os');
-const { existsSync } = require('fs');
-const { run } = require('.');
+import { EOL } from 'os';
+import { existsSync } from 'fs';
+import { run } from '.';
 
 const args = process.argv.slice(2);
 const files = args.filter(existsSync);

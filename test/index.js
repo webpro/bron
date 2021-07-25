@@ -1,7 +1,7 @@
-const { EOL } = require('os');
-const assert = require('assert');
-const sinon = require('sinon');
-const { run } = require('..');
+import { EOL } from 'os';
+import assert from 'assert';
+import sinon from 'sinon';
+import { run } from '../index.js';
 
 const logStub = sinon.stub(console, 'log');
 const errorStub = sinon.stub(console, 'error');
@@ -13,11 +13,11 @@ const errorStub = sinon.stub(console, 'error');
 
       const output = logStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, ['✔ should pass first', '✔ should pass in-between', '✔ should pass last']);
+      assert.deepStrictEqual(output, ['✔ should pass first', '✔ should pass in-between', '✔ should pass last']);
 
-      assert.equal(total, 3);
-      assert.equal(failed, 0);
-      assert.equal(passed, 3);
+      assert.deepStrictEqual(total, 3);
+      assert.deepStrictEqual(failed, 0);
+      assert.deepStrictEqual(passed, 3);
 
       console.info(output.join(EOL));
     }
@@ -30,7 +30,7 @@ const errorStub = sinon.stub(console, 'error');
 
       const output = logStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, [
+      assert.deepStrictEqual(output, [
         '✔ should pass',
         '✖ should fail',
         '✔ should pass with resolved promise',
@@ -42,9 +42,9 @@ const errorStub = sinon.stub(console, 'error');
         '✔ should pass last in serial mode'
       ]);
 
-      assert.equal(total, 9);
-      assert.equal(failed, 1);
-      assert.equal(passed, 8);
+      assert.deepStrictEqual(total, 9);
+      assert.deepStrictEqual(failed, 1);
+      assert.deepStrictEqual(passed, 8);
 
       console.info(output.join(EOL));
     }
@@ -58,7 +58,11 @@ const errorStub = sinon.stub(console, 'error');
       const output = logStub.args.map(args => args[0]);
       const errorArgs = errorStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, ['✔ should pass', '✖ should fail', '✖ should fail with returned rejected promise']);
+      assert.deepStrictEqual(output, [
+        '✔ should pass',
+        '✖ should fail',
+        '✖ should fail with returned rejected promise'
+      ]);
 
       assert(errorArgs[0] instanceof assert.AssertionError);
       assert.strictEqual(errorArgs[0].actual, 3);
@@ -67,9 +71,9 @@ const errorStub = sinon.stub(console, 'error');
       assert(errorArgs[1] instanceof Error);
       assert.strictEqual(errorArgs[1].message, 'No can do!');
 
-      assert.equal(total, 3);
-      assert.equal(failed, 2);
-      assert.equal(passed, 1);
+      assert.deepStrictEqual(total, 3);
+      assert.deepStrictEqual(failed, 2);
+      assert.deepStrictEqual(passed, 1);
 
       console.info(output.join(EOL));
     }
@@ -81,11 +85,11 @@ const errorStub = sinon.stub(console, 'error');
       const { total, failed, passed } = await run({ files: ['test/skip.js'] });
       const output = logStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, ['✔ should not be skipped', '✔ should not be skipped']);
+      assert.deepStrictEqual(output, ['✔ should not be skipped', '✔ should not be skipped']);
 
-      assert.equal(total, 4);
-      assert.equal(failed, 0);
-      assert.equal(passed, 2);
+      assert.deepStrictEqual(total, 4);
+      assert.deepStrictEqual(failed, 0);
+      assert.deepStrictEqual(passed, 2);
 
       console.info(output.join(EOL));
     }
@@ -97,11 +101,11 @@ const errorStub = sinon.stub(console, 'error');
       const { total, failed, passed } = await run({ files: ['test/only.js'] });
       const output = logStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, ['✔ should not be skipped', '✔ should not be skipped']);
+      assert.deepStrictEqual(output, ['✔ should not be skipped', '✔ should not be skipped']);
 
-      assert.equal(total, 4);
-      assert.equal(failed, 0);
-      assert.equal(passed, 2);
+      assert.deepStrictEqual(total, 4);
+      assert.deepStrictEqual(failed, 0);
+      assert.deepStrictEqual(passed, 2);
 
       console.info(output.join(EOL));
     }
@@ -113,7 +117,7 @@ const errorStub = sinon.stub(console, 'error');
       const { total, failed, passed } = await run({ files: ['test/timeout.js'], timeout: 100 });
       const output = logStub.args.map(args => args[0]);
 
-      assert.deepEqual(output, [
+      assert.deepStrictEqual(output, [
         '✔ should not time out',
         '✔ should not time out (1ms)',
         '✔ should not time out (50ms)',
@@ -121,9 +125,9 @@ const errorStub = sinon.stub(console, 'error');
         '✖ should time out (150ms)'
       ]);
 
-      assert.equal(total, 5);
-      assert.equal(failed, 2);
-      assert.equal(passed, 3);
+      assert.deepStrictEqual(total, 5);
+      assert.deepStrictEqual(failed, 2);
+      assert.deepStrictEqual(passed, 3);
 
       console.info(output.join(EOL));
     }

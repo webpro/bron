@@ -1,4 +1,4 @@
-const test = require('..');
+import test from '../index.js';
 
 test('should not be skipped', () => {});
 

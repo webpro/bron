@@ -1,9 +1,9 @@
-const { types } = require('util');
-const { resolve } = require('path');
+import { types } from 'util';
+import { resolve } from 'path';
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
-let [tests, only] = [[], []];
+let [tests, _only] = [[], []];
 let [passed, failed, skipped] = [0, 0, 0];
 
 const start = ({ title, timeout, resolve }) => {
@@ -48,20 +48,24 @@ const execute = async ({ tests, isSerial, timeout = 15000 }) => {
   return results;
 };
 
-module.exports = (title, testFn) => tests.push([title, testFn]);
-module.exports.skip = () => skipped++;
-module.exports.only = (title, testFn) => only.push([title, testFn]);
+const test = (title, testFn) => tests.push([title, testFn]);
+test.skip = () => skipped++;
+test.only = (title, testFn) => _only.push([title, testFn]);
 
-module.exports.run = async ({ files, isSerial, timeout }) => {
-  [tests, only] = [[], [], []];
+export default test;
+
+export const run = async ({ files, isSerial, timeout }) => {
+  [tests, _only] = [[], [], []];
   [passed, failed, skipped] = [0, 0, 0];
 
-  files.forEach(file => require(resolve(file)));
+  for (const file of files) {
+    await import(resolve(file));
+  }
 
-  const results = await execute({ tests: only.length ? only : tests, isSerial, timeout });
+  const results = await execute({ tests: _only.length ? _only : tests, isSerial, timeout });
 
   await Promise.all(results).catch(() => {});
 
-  const total = tests.length + only.length + skipped;
+  const total = tests.length + _only.length + skipped;
   return { total, failed, passed };
 };

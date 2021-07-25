@@ -1,6 +1,6 @@
-const assert = require('assert');
-const { wait } = require('./helpers');
-const test = require('..');
+import assert from 'assert';
+import { wait } from './helpers.js';
+import test from '../index.js';
 
 test('should not time out', async () => {
   assert(true);

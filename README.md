@@ -64,8 +64,8 @@ bron <file> [--serial] [--timeout=ms]
 ### sync
 
 ```js
-const test = require('bron');
-const assert = require('assert').strict;
+import test from 'bron';
+import assert from 'assert'.strict;
 
 const add = (x, y) => x + y;
 
