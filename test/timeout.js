@@ -1,6 +1,6 @@
-import assert from 'assert';
-import { wait } from './helpers.js';
+import { strict as assert } from 'assert';
 import test from '../index.js';
+import { wait } from './helpers.js';
 
 test('should not time out', async () => {
   assert(true);

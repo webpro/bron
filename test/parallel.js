@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { strict as assert } from 'assert';
 import test from '../index.js';
 import { wait } from './helpers.js';
 

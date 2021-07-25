@@ -1,17 +1,17 @@
-import assert from 'assert';
-import { add, addAsync, wait } from './helpers.js';
+import { strict as assert } from 'assert';
 import test from '../index.js';
+import { add, addAsync, wait } from './helpers.js';
 
 test('should pass', () => {
   assert.equal(add(1, 2), 3);
 });
 
 test('should fail', () => {
-  assert.strictEqual(add(1, 2), 4);
+  assert.equal(add(1, 2), 4);
 });
 
 test('should pass with resolved promise', async () => {
-  assert.strictEqual(await addAsync(1, 2), 3);
+  assert.equal(await addAsync(1, 2), 3);
 });
 
 test('should pass with returned promise', () => {

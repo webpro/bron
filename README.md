@@ -66,7 +66,7 @@ bron <file> [--serial] [--timeout=ms]
 
 ```js
 import test from 'bron';
-import assert from 'assert'.strict;
+import { strict as assert } from 'assert';
 
 const add = (x, y) => x + y;
 
