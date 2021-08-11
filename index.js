@@ -1,5 +1,5 @@
 import { types } from 'util';
-import { resolve } from 'path';
+import { pathToFileURL } from 'url';
 
 const isPromise = types && types.isPromise ? types.isPromise : p => p && typeof p.then === 'function';
 
@@ -59,7 +59,7 @@ export const run = async ({ files, isSerial, timeout }) => {
   [passed, failed, skipped] = [0, 0, 0];
 
   for (const file of files) {
-    await import(resolve(file));
+    await import(pathToFileURL(file));
   }
 
   const results = await execute({ tests: _only.length ? _only : tests, isSerial, timeout });
