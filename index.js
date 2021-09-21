@@ -59,7 +59,11 @@ export const run = async ({ files, isSerial, timeout }) => {
   [passed, failed, skipped] = [0, 0, 0];
 
   for (const file of files) {
-    await import(pathToFileURL(file));
+    try {
+      await import(pathToFileURL(file));
+    } catch (error) {
+      tests.push([file, () => Promise.reject(error)]);
+    }
   }
 
   const results = await execute({ tests: _only.length ? _only : tests, isSerial, timeout });

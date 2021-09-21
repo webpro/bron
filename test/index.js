@@ -78,6 +78,27 @@ const errorStub = sinon.stub(console, 'error');
     errorStub.reset();
 
     {
+      const { total, failed, passed } = await run({ files: ['test/ext-error.js'] });
+
+      const output = logStub.args.map(args => args[0]);
+      const errorArgs = errorStub.args.map(args => args[0]);
+
+      assert.deepEqual(output, ['✖ test/ext-error.js']);
+
+      assert(errorArgs[0] instanceof Error);
+      assert.equal(errorArgs[0].message, 'foo is not defined');
+
+      assert.deepEqual(total, 1);
+      assert.deepEqual(failed, 1);
+      assert.deepEqual(passed, 0);
+
+      console.info(output.join(EOL));
+    }
+
+    logStub.reset();
+    errorStub.reset();
+
+    {
       const { total, failed, passed } = await run({ files: ['test/skip.js'] });
       const output = logStub.args.map(args => args[0]);
 
