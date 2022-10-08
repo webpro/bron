@@ -1,5 +1,8 @@
 # bron
 
+_**NOTE** Now that Node.js finally has the built-in [Node.js Test runner](https://nodejs.org/api/test.html),
+I consider bron **deprecated** (October 2022)._
+
 Tiny test runner for Node.js
 
 - Single `test()` function, plus [.skip()](#skip) and [.only()](#only)
